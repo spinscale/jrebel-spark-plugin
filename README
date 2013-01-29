@@ -1,0 +1,14 @@
+JRebel plugin for the spark webframework
+
+Prerequisites: You have to have a static method in your spark webframework without arguments which is called for initialization and be recalled any time while your application is running.
+
+Compilation: mvn package
+
+Then call your application with these properties (and the JRebel agent of course)
+
+-Drebel.plugins=/path/to/target/jrebel-plugin-spark-0.1-SNAPSHOT.jar
+-Drebel.jr-spark-groovy=true
+-Drebel.spark.app.class=path.to.your.SparkClass
+-Drebel.spark.app.method=init
+
+DANGER: Whenever one of your classes in your applications change, this plugin acts very stupid and calls "spark.Spark.clearRoutes()" and then calls the class and method defined in the properties again. This of course might create memory leaks.
